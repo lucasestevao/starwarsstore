@@ -13,9 +13,7 @@ Fork this repo and run `npm install` to get the node modules.
 
 ## Build
 
-Run `grunt serve` to preview on local.
+Run `grunt` to prepare the environment.
 
+Run `node server.js` to preview on local.
 
-## Testing
-
-Testing still under development.
