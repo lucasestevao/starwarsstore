@@ -3,7 +3,7 @@
 angular.module('bag', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
-	$routeProvider.when('bag/', {
+	$routeProvider.when('/bag', {
 		templateUrl: 'bag.html',
 		controller: 'BagCtrl'
 	});

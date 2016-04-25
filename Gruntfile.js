@@ -28,6 +28,7 @@ module.exports = function(grunt) {
 					'frontend/assets/js/jquery-2.1.4.min.js',
 					'frontend/assets/js/foundation.min.js',
 					'frontend/assets/js/angular.min.js',
+					'node_modules/angular-route/angular-route.js',
 					'frontend/assets/js/app.js',
 					'frontend/assets/js/bag.js',
 					'frontend/assets/js/product.js'
