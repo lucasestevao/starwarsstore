@@ -1,0 +1,14 @@
+<section>
+	<header class="row column text-center header">
+		<h1>Our Newest Star Wars Products</h1>
+		<hr>
+	</header>
+	<div class="row small-up-2 large-up-4">
+		<article class="column" ng-repeat="product in shopData">
+			<img class="thumbnail" ng-src="assets/img/products/{{product.img}}" alt="C3PO dictionary">
+			<h5>{{product.name}}</h5>
+			<p>${{product.price}}</p>
+			<div id="prod-c3po" class="button expanded">Buy</div>
+		</article>
+	</div>
+</section>
