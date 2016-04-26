@@ -5,10 +5,12 @@ $(document).foundation();
 angular.module('starwarsstore', [
 	'ngRoute',
 	'bag',
-	'product'
+	'product',
+	'login',
+	'signup'
 ]).
 config(['$routeProvider', function($routeProvider) {
 	$routeProvider.otherwise({
-		redirectTo: '/product'
+		redirectTo: '/login'
 	});
 }]);
