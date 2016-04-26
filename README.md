@@ -8,6 +8,8 @@ HTML5, CSS, Javascript, Grunt, Node, Foundation, Angular. Concepts of mobile fir
 
 ## Installation
 
+You need to have [node](https://nodejs.org/en/download/) instaled.
+
 Fork this repo and run `npm install` on the root folder to get the node modules.
 
 

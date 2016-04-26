@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 		watch: {
 			js: {
 				files: [
-					'frontend/assets/js/*.js',
+					'frontend/assets/js/**/*.js',
 					'Gruntfile.js'
 				],
 				tasks: ['js']
@@ -30,8 +30,7 @@ module.exports = function(grunt) {
 					'frontend/assets/js/angular.min.js',
 					'node_modules/angular-route/angular-route.js',
 					'frontend/assets/js/app.js',
-					'frontend/assets/js/bag.js',
-					'frontend/assets/js/product.js'
+					'frontend/assets/js/controllers/*.js'
 				],
 				dest: 'frontend/.temp/js/main.js'
 			}
@@ -48,7 +47,7 @@ module.exports = function(grunt) {
 			},
 			concat: {
 				files: {
-					'frontend/public/assets/css/app.min.css': ['frontend/assets/css/foundation.min.css', 'frontend/assets/css/app.css']
+					'frontend/public/assets/css/app.min.css': ['frontend/assets/css/*.css']
 				}
 			}
 		},
@@ -64,7 +63,7 @@ module.exports = function(grunt) {
 			}
 		},
 		jsbeautifier: {
-			files: ['Gruntfile.js', 'frontend/assets/js/app.js', 'frontend/assets/js/product.js', 'frontend/assets/js/bag.js'],
+			files: ['Gruntfile.js', 'frontend/assets/js/**/*.js', "!frontend/assets/js/**/*.min.js", 'frontend/assets/css/*.css', '!frontend/assets/css/*.min.css'],
 			options: {
 				js: {
 					indentSize: 1,
@@ -78,11 +77,12 @@ module.exports = function(grunt) {
 					removeComments: true,
 					collapseWhitespace: true
 				},
-				files: {
-					'frontend/public/bag.html': 'frontend/views/bag.html',
-					'frontend/public/index.html': 'frontend/views/index.html',
-					'frontend/public/product.html': 'frontend/views/product.html'
-				}
+				files: [{
+					expand: true,
+					cwd: 'frontend/views',
+					src: '**/*.html',
+					dest: 'frontend/public/'
+				}]
 			}
 		},
 		imagemin: {
@@ -98,7 +98,12 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
-		clean: ['frontend/public/assets/**', 'frontend/.temp']
+		clean: {
+			options: {
+				'force': true
+			},
+			build: ['frontend/public/*', 'frontend/.temp']
+		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
