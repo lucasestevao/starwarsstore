@@ -103,9 +103,46 @@ module.exports = function(grunt) {
 				'force': true
 			},
 			build: ['frontend/public/*', 'frontend/.temp']
-		}
+		},
+		connect: {
+			options: {
+				port: 3000,
+				hostname: 'localhost',
+				livereload: false
+			},
+			proxies: [{
+				context: '/api',
+				host: 'localhost',
+				port: 3002
+			}],
+			livereload: {
+				options: {
+					open: false,
+					base: ['frontend/public'],
+					middleware: function(connect, options) {
+						var middlewares = [];
+
+						if (!Array.isArray(options.base)) {
+							options.base = [options.base];
+						}
+
+						// Setup the proxy
+						middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest);
+
+						// Serve static files
+						options.base.forEach(function(base) {
+							middlewares.push(connect.static(base));
+						});
+
+						return middlewares;
+					}
+				}
+			}
+		},
 	});
 
+	grunt.loadNpmTasks('grunt-connect-proxy');
+	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -116,5 +153,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-jsbeautifier');
 
 	grunt.registerTask('js', ['jsbeautifier', 'concat', 'uglify']);
-	grunt.registerTask('default', ['clean', 'htmlmin', 'js', 'cssmin', 'imagemin', 'watch']);
+	grunt.registerTask('proxy', ['configureProxies:server', 'connect:livereload']);
+	grunt.registerTask('default', ['clean', 'htmlmin', 'js', 'cssmin', 'imagemin', 'proxy', 'watch']);
+	grunt.registerTask('dev', ['proxy', 'watch']);
 };

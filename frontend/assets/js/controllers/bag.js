@@ -9,26 +9,29 @@ angular.module('bag', ['ngRoute'])
 	});
 }])
 
-.controller('BagCtrl', ['$scope', 'CommonProp', function($scope, CommonProp) {
-
-}])
-
-.service('CommonProp', function() {
-	var Items = '';
-	var Total = 0;
-
-	return {
-		getItems: function() {
-			return Items;
-		},
-		setItem: function(value) {
-			Items = value;
-		},
-		getTotal: function() {
-			return Total;
-		},
-		setTotal: function(value) {
-			Total = value;
+.controller('BagCtrl', ['$scope', '$http', function($scope, $http) {
+	var config = {
+		headers: {
+			'Content-type': 'application/json; charset=utf8',
+			'Accept': 'application/json',
+			'X-Request': 'JSON',
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Headers': 'Content-Type,X-Requested-With',
+			'Access-Control-Allow-Methods': 'GET, POST'
 		}
 	};
-});
+
+	function init() {
+		$http.get('api/shoppingcart/', config.headers).
+
+		success(function(data) {
+			$scope.shopData = data;
+		}).
+
+		error(function(data, status) {
+			console.log(status);
+		});
+	};
+
+	init();
+}])

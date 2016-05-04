@@ -9,26 +9,29 @@ angular.module('product', ['ngRoute'])
 	});
 }])
 
-.controller('ProductCtrl', ['$scope', function($scope) {
-	$scope.shopData = [{
-		'name': 'C3PO dictionary',
-		'id': 'prod-c3po',
-		'price': '100',
-		img: 'C3PO-dictionary.png'
-	}, {
-		'name': 'Storm Blast',
-		'id': 'prod-storm',
-		'price': '200',
-		img: 'storm-tropper-blast.png'
-	}, {
-		'name': 'Darth Vader light saber',
-		'id': 'prod-darth',
-		'price': '400',
-		img: 'darth-vader-light-saber.png'
-	}, {
-		'name': 'Boba Fett hunter manual',
-		'id': 'prod-boba',
-		'price': '300',
-		img: 'boba-fett-hunter-manual.png'
-	}];
+.controller('ProductCtrl', ['$scope', '$http', function($scope, $http) {
+	var config = {
+		headers: {
+			'Content-type': 'application/json; charset=utf8',
+			'Accept': 'application/json',
+			'X-Request': 'JSON',
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Headers': 'Content-Type,X-Requested-With',
+			'Access-Control-Allow-Methods': 'GET, POST'
+		}
+	};
+
+	function init() {
+		$http.get('api/products/', config.headers).
+
+		success(function(data) {
+			$scope.shopData = data;
+		}).
+
+		error(function(data, status) {
+			console.log(status);
+		});
+	};
+
+	init();
 }]);
