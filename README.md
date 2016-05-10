@@ -21,5 +21,9 @@ Run `grunt` in the root folder to prepare the environment and raise the server. 
 
 Run `node api.js` in the root folder to access the api.
 
-Check [http://localhost:3000/](http://localhost:3000/)
+Check <a href="http://localhost:3000/" target="_blank">http://localhost:3000/</a>
 
+
+## License
+
+<a href="http://opensource.org/licenses/MIT" target="_blank">The MIT License</a>
